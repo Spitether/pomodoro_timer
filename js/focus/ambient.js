@@ -10,7 +10,7 @@ Pomodoro.focusAmbient = (function() {
     const AMBIENT_SOUNDS = [
         { id: 'rain', name: 'Rain', icon: '🌧️' },
         { id: 'cafe', name: 'Café', icon: '☕' },
-        { id: 'white', name: 'White Noise', icon: '🌊' }
+        { id: 'minecraft', name: 'Minecraft', icon: '⛏️' }
     ];
 
     function renderAmbientControls() {

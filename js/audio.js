@@ -94,21 +94,17 @@ Pomodoro.audio = (function() {
 
         const masterGain = buildMasterGain(volume);
 
-        if (type === 'white') {
-            const buffer = createNoiseBuffer();
-            const source = audioCtx.createBufferSource();
-            source.buffer = buffer;
-            source.loop = true;
+        if (type === 'minecraft') {
+            const mp3Audio = new Audio('audio/minecraft.mp3');
+            mp3Audio.loop = true;
+            mp3Audio.volume = 1;
 
-            const filter = audioCtx.createBiquadFilter();
-            filter.type = 'lowpass';
-            filter.frequency.value = 8000;
+            const source = audioCtx.createMediaElementSource(mp3Audio);
+            source.connect(masterGain);
 
-            source.connect(filter);
-            filter.connect(masterGain);
-            source.start();
+            mp3Audio.play().catch(e => console.log('Minecraft audio play failed:', e));
 
-            ambientNodes = { source, masterGain, type: 'synth' };
+            ambientNodes = { source, masterGain, mp3Audio, type: 'mp3' };
         }
         else if (type === 'rain') {
             // Play real rain MP3
