@@ -7,6 +7,7 @@ Pomodoro.audio = (function() {
 
     // Ambient sound nodes (persist while playing)
     let ambientNodes = null;
+    let cafeAudio = null;
 
     function playAlert() {
         if (!Pomodoro.state.settings.soundEnabled) return;
@@ -137,22 +138,17 @@ Pomodoro.audio = (function() {
             ambientNodes = { source, masterGain, lfo };
         }
         else if (type === 'cafe') {
-            // Pink noise for murmur
-            const buffer = createPinkNoiseBuffer();
-            const source = audioCtx.createBufferSource();
-            source.buffer = buffer;
-            source.loop = true;
+            // Play real café ambiance MP3
+            cafeAudio = new Audio('audio/Cafe.mp3');
+            cafeAudio.loop = true;
+            cafeAudio.volume = 1;
 
-            const filter = audioCtx.createBiquadFilter();
-            filter.type = 'bandpass';
-            filter.frequency.value = 800;
-            filter.Q.value = 0.6;
+            const source = audioCtx.createMediaElementSource(cafeAudio);
+            source.connect(masterGain);
 
-            source.connect(filter);
-            filter.connect(masterGain);
-            source.start();
+            cafeAudio.play().catch(e => console.log('Café audio play failed:', e));
 
-            ambientNodes = { source, masterGain };
+            ambientNodes = { source, masterGain, cafeAudio };
         }
     }
 
@@ -161,6 +157,10 @@ Pomodoro.audio = (function() {
         try {
             if (ambientNodes.lfo) ambientNodes.lfo.stop();
             if (ambientNodes.source) ambientNodes.source.stop();
+            if (ambientNodes.cafeAudio) {
+                ambientNodes.cafeAudio.pause();
+                ambientNodes.cafeAudio.currentTime = 0;
+            }
         } catch (e) {
             // Already stopped
         }
