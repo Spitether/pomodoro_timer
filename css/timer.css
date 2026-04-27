@@ -1,0 +1,289 @@
+/* Session Tabs */
+.session-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+}
+
+.tab-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 20px;
+    border: 2px solid transparent;
+    border-radius: 24px;
+    background-color: var(--secondary-color);
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    white-space: nowrap;
+}
+
+.tab-btn:hover {
+    background-color: var(--secondary-hover);
+    color: var(--text-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.tab-btn:active {
+    transform: translateY(0) scale(0.98);
+}
+
+.tab-btn .tab-icon {
+    font-size: 1rem;
+    line-height: 1;
+    transition: transform 0.3s ease;
+}
+
+.tab-btn:hover .tab-icon {
+    transform: scale(1.2);
+}
+
+/* Mode-specific active states */
+.tab-btn.active[data-session="work"] {
+    background-color: var(--work-color);
+    color: white;
+    border-color: var(--work-color);
+    box-shadow: 0 4px 16px var(--work-glow);
+}
+
+.tab-btn.active[data-session="shortBreak"] {
+    background-color: var(--short-break-color);
+    color: white;
+    border-color: var(--short-break-color);
+    box-shadow: 0 4px 16px var(--short-break-glow);
+}
+
+.tab-btn.active[data-session="longBreak"] {
+    background-color: var(--long-break-color);
+    color: white;
+    border-color: var(--long-break-color);
+    box-shadow: 0 4px 16px var(--long-break-glow);
+}
+
+/* Timer Progress Ring */
+.timer-progress-ring {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 300px;
+    height: 300px;
+    margin-bottom: 16px;
+    filter: drop-shadow(0 0 20px var(--timer-glow, var(--work-glow)));
+    animation: timer-glow-pulse 3s ease-in-out infinite;
+}
+
+@keyframes timer-glow-pulse {
+    0%, 100% { filter: drop-shadow(0 0 20px var(--timer-glow, var(--work-glow))); }
+    50% { filter: drop-shadow(0 0 35px var(--timer-glow, var(--work-glow))); }
+}
+
+.progress-svg {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    transform: rotate(-90deg);
+    pointer-events: none;
+}
+
+.progress-track {
+    stroke: var(--secondary-color);
+    opacity: 0.5;
+}
+
+.progress-fill {
+    stroke: var(--timer-color, var(--work-color));
+    stroke-dasharray: 339.292;
+    stroke-dashoffset: 339.292;
+    transition: stroke-dashoffset 1s linear, stroke 0.5s ease;
+}
+
+/* Timer Display */
+.timer-display {
+    font-size: clamp(4rem, 16vw, 7rem);
+    font-weight: 300;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -4px;
+    color: var(--text-color);
+    transition: var(--transition);
+    line-height: 1;
+    z-index: 1;
+}
+
+.separator {
+    opacity: 0.3;
+    margin: 0 6px;
+}
+
+/* Session Info */
+.session-info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 36px;
+    color: var(--text-muted);
+    font-size: 1rem;
+}
+
+#session-label {
+    font-weight: 600;
+}
+
+/* Controls */
+.controls {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+
+.control-btn {
+    padding: 16px 36px;
+    border: none;
+    border-radius: 16px;
+    font-size: 1.05rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    min-width: 110px;
+    letter-spacing: 0.3px;
+    position: relative;
+    overflow: hidden;
+}
+
+.control-btn::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, rgba(255,255,255,0.3) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.control-btn:hover::after {
+    opacity: 1;
+}
+
+.control-btn.primary {
+    background-color: var(--primary-color);
+    color: white;
+    box-shadow: 0 4px 16px rgba(229, 62, 62, 0.35);
+}
+
+.control-btn.primary:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(229, 62, 62, 0.45);
+}
+
+.control-btn.primary:active {
+    transform: translateY(-1px) scale(0.96);
+    box-shadow: 0 2px 8px rgba(229, 62, 62, 0.3);
+}
+
+.control-btn.secondary {
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+}
+
+.control-btn.secondary:hover {
+    background-color: var(--secondary-hover);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+
+.control-btn.secondary:active {
+    transform: translateY(-1px) scale(0.96);
+}
+
+/* Icon Buttons */
+.icon-btn {
+    background: none;
+    border: none;
+    font-size: 1.4rem;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 12px;
+    transition: var(--transition);
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+}
+
+.icon-btn:hover {
+    background-color: var(--secondary-color);
+    transform: scale(1.08) rotate(5deg);
+}
+
+.icon-btn:active {
+    transform: scale(0.95);
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .session-tabs {
+        gap: 8px;
+    }
+
+    .tab-btn {
+        padding: 8px 16px;
+        font-size: 0.78rem;
+    }
+
+    .tab-btn .tab-icon {
+        font-size: 0.9rem;
+    }
+
+    .control-btn {
+        padding: 14px 28px;
+        min-width: 95px;
+        font-size: 0.95rem;
+    }
+
+    .session-info {
+        font-size: 0.9rem;
+    }
+
+    .timer-progress-ring {
+        width: 240px;
+        height: 240px;
+    }
+
+    .progress-svg {
+        width: 240px;
+        height: 240px;
+    }
+}
+
+@media (max-width: 380px) {
+    .control-btn {
+        padding: 12px 22px;
+        min-width: 85px;
+        font-size: 0.9rem;
+    }
+
+    .session-tabs {
+        gap: 6px;
+    }
+
+    .tab-btn {
+        padding: 7px 12px;
+        font-size: 0.75rem;
+    }
+
+    .progress-svg {
+        width: 200px;
+        height: 200px;
+    }
+}
+

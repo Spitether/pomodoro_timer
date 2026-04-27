@@ -1,0 +1,234 @@
+/* ============ FOCUS ENVIRONMENT ============ */
+
+/* Focus Card */
+.focus-card {
+    background-color: var(--card-bg);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 24px;
+    margin-top: 16px;
+}
+
+.focus-section {
+    margin-bottom: 24px;
+}
+
+.focus-section:last-of-type {
+    margin-bottom: 0;
+}
+
+.focus-section h4 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text-color);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* Theme Grid */
+.theme-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+}
+
+.theme-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 14px 8px;
+    border: 2px solid var(--border-color);
+    border-radius: 14px;
+    background: transparent;
+    cursor: pointer;
+    transition: var(--transition);
+    font-family: inherit;
+}
+
+.theme-option:hover {
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.theme-option.active {
+    border-color: var(--primary-color);
+    background: linear-gradient(135deg, rgba(229, 62, 62, 0.08), rgba(229, 62, 62, 0.02));
+}
+
+.theme-option .theme-icon {
+    font-size: 1.6rem;
+    line-height: 1;
+}
+
+.theme-option .theme-name {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+.theme-option.active .theme-name {
+    color: var(--primary-color);
+    font-weight: 700;
+}
+
+/* Ambient Sounds */
+.ambient-controls {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 14px;
+}
+
+.ambient-sound-item {
+    flex: 1;
+    text-align: center;
+}
+
+.ambient-play-btn {
+    width: 100%;
+    padding: 16px 10px;
+    border: 2px solid var(--border-color);
+    border-radius: 14px;
+    background: transparent;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    transition: var(--transition);
+    font-family: inherit;
+}
+
+.ambient-play-btn:hover {
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+}
+
+.ambient-play-btn.playing {
+    border-color: var(--success-color);
+    background: linear-gradient(135deg, rgba(72, 187, 120, 0.08), rgba(72, 187, 120, 0.02));
+}
+
+.ambient-icon {
+    font-size: 1.6rem;
+    line-height: 1;
+}
+
+.ambient-play-icon {
+    font-size: 1rem;
+    color: var(--text-muted);
+}
+
+.ambient-play-btn.playing .ambient-play-icon {
+    color: var(--success-color);
+}
+
+.ambient-name {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    margin-top: 4px;
+    display: block;
+}
+
+/* Volume Slider */
+.ambient-volume-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    background-color: var(--secondary-color);
+    border-radius: 12px;
+}
+
+.volume-icon {
+    font-size: 0.9rem;
+    flex-shrink: 0;
+}
+
+.ambient-volume-slider {
+    flex: 1;
+    -webkit-appearance: none;
+    appearance: none;
+    height: 6px;
+    background: var(--border-color);
+    border-radius: 3px;
+    outline: none;
+    cursor: pointer;
+}
+
+.ambient-volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(229, 62, 62, 0.3);
+    transition: transform 0.15s ease;
+}
+
+.ambient-volume-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.15);
+}
+
+.ambient-volume-slider::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 2px 6px rgba(229, 62, 62, 0.3);
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+    .focus-card {
+        padding: 20px;
+    }
+
+    .theme-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+    }
+
+    .theme-option {
+        padding: 12px 6px;
+    }
+
+    .theme-option .theme-icon {
+        font-size: 1.4rem;
+    }
+
+    .ambient-controls {
+        gap: 8px;
+    }
+
+    .ambient-play-btn {
+        padding: 12px 8px;
+    }
+
+    .ambient-icon {
+        font-size: 1.4rem;
+    }
+}
+
+@media (max-width: 380px) {
+    .focus-card {
+        padding: 16px;
+    }
+
+    .theme-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .ambient-controls {
+        flex-direction: column;
+    }
+}
+

@@ -1,0 +1,342 @@
+/* ============ ANALYTICS ============ */
+
+/* Analytics Card */
+.analytics-card {
+    background-color: var(--card-bg);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 24px;
+    margin-top: 16px;
+}
+
+.analytics-section {
+    margin-bottom: 24px;
+}
+
+.analytics-section:last-of-type {
+    margin-bottom: 0;
+}
+
+.analytics-section h4 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text-color);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.empty-chart,
+.empty-history {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    padding: 20px;
+    background-color: var(--secondary-color);
+    border-radius: 12px;
+}
+
+/* Chart Container */
+.chart-container {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 6px;
+    height: 140px;
+    padding: 10px 4px 4px;
+    background-color: var(--secondary-color);
+    border-radius: 12px;
+}
+
+.daily-chart-container {
+    gap: 3px;
+    overflow-x: auto;
+    padding-bottom: 8px;
+}
+
+.chart-bar-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    min-width: 24px;
+    height: 100%;
+}
+
+.chart-bar {
+    width: 100%;
+    max-width: 32px;
+    background: linear-gradient(180deg, var(--primary-color), var(--primary-hover));
+    border-radius: 6px 6px 2px 2px;
+    transition: height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    min-height: 4px;
+    opacity: 0.35;
+}
+
+.chart-bar.has-data {
+    opacity: 1;
+}
+
+.chart-bar-value {
+    position: absolute;
+    top: -18px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    white-space: nowrap;
+}
+
+.chart-bar-label {
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    font-weight: 600;
+    margin-top: 6px;
+    text-align: center;
+}
+
+.chart-bar-label.small {
+    font-size: 0.55rem;
+}
+
+/* Heatmap */
+.heatmap-wrapper {
+    background-color: var(--secondary-color);
+    border-radius: 12px;
+    padding: 14px;
+}
+
+.heatmap-container {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.heatmap-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 2px;
+    margin-bottom: 2px;
+}
+
+.heatmap-day-label {
+    font-size: 0.6rem;
+    color: var(--text-muted);
+    font-weight: 600;
+    text-align: center;
+    width: 24px;
+}
+
+.heatmap-cells {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+.heatmap-cell {
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+    background-color: var(--border-color);
+    transition: transform 0.15s ease, background-color 0.3s ease;
+    cursor: default;
+}
+
+.heatmap-cell:hover {
+    transform: scale(1.15);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+    z-index: 2;
+}
+
+.intensity-0 { background-color: var(--border-color); }
+.intensity-1 { background-color: #9be9a8; }
+.intensity-2 { background-color: #40c463; }
+.intensity-3 { background-color: #30a14e; }
+.intensity-4 { background-color: #216e39; }
+
+.heatmap-legend {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    margin-top: 12px;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+}
+
+.heatmap-legend .heatmap-cell {
+    width: 14px;
+    height: 14px;
+}
+
+/* Analytics Stats Row */
+.analytics-stats-row {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 24px;
+}
+
+.analytics-stat {
+    flex: 1;
+    text-align: center;
+    padding: 18px 14px;
+    background-color: var(--secondary-color);
+    border-radius: 14px;
+    transition: var(--transition);
+}
+
+.analytics-stat:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.analytics-stat-icon {
+    font-size: 1.5rem;
+    display: block;
+    margin-bottom: 6px;
+    line-height: 1;
+}
+
+.analytics-stat-value {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-color);
+    display: block;
+    margin-bottom: 2px;
+}
+
+.analytics-stat-label {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    display: block;
+}
+
+.analytics-stat-sublabel {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    margin-top: 2px;
+    display: block;
+}
+
+/* Session History */
+.session-history {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.history-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    background-color: var(--secondary-color);
+    border-radius: 12px;
+    transition: var(--transition);
+}
+
+.history-item:hover {
+    background-color: var(--border-color);
+}
+
+.history-icon {
+    font-size: 1.4rem;
+    flex-shrink: 0;
+    line-height: 1;
+}
+
+.history-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.history-time {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.history-duration {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.history-ago {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-weight: 500;
+    flex-shrink: 0;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+    .analytics-card {
+        padding: 20px;
+    }
+
+    .analytics-section h4 {
+        font-size: 0.9rem;
+    }
+
+    .chart-bar-label {
+        font-size: 0.6rem;
+    }
+
+    .chart-bar-label.small {
+        font-size: 0.5rem;
+    }
+
+    .heatmap-day-label {
+        font-size: 0.55rem;
+    }
+
+    .heatmap-cell {
+        width: 22px;
+        height: 22px;
+    }
+
+    .analytics-stats-row {
+        gap: 10px;
+    }
+
+    .analytics-stat {
+        padding: 14px 10px;
+    }
+
+    .analytics-stat-value {
+        font-size: 1.1rem;
+    }
+
+    .history-item {
+        padding: 10px 12px;
+    }
+}
+
+@media (max-width: 380px) {
+    .analytics-card {
+        padding: 16px;
+    }
+
+    .chart-bar-wrapper {
+        min-width: 18px;
+    }
+
+    .heatmap-cell {
+        width: 18px;
+        height: 18px;
+    }
+
+    .analytics-stats-row {
+        flex-direction: column;
+    }
+}
+

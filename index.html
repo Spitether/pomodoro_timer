@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pomodoro Timer</title>
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/themes.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/timer.css">
+    <link rel="stylesheet" href="css/modal.css">
+    <link rel="stylesheet" href="css/stats.css">
+    <link rel="stylesheet" href="css/badges.css">
+    <link rel="stylesheet" href="css/tasks.css">
+    <link rel="stylesheet" href="css/analytics.css">
+    <link rel="stylesheet" href="css/focus.css">
+    <link rel="stylesheet" href="css/music.css">
+    <link rel="stylesheet" href="css/gamification.css">
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <h1>Pomodoro Timer</h1>
+            <button id="theme-toggle" class="theme-toggle-switch" title="Toggle Dark Mode" aria-label="Toggle Dark Mode" aria-pressed="false">
+                <span class="theme-toggle-track">
+                    <span class="theme-toggle-thumb">
+                        <span class="theme-toggle-icon">🌙</span>
+                    </span>
+                </span>
+            </button>
+        </header>
+
+        <main>
+            <!-- Timer Section -->
+            <section class="timer-card" aria-label="Timer">
+                <div class="session-tabs" role="tablist" aria-label="Session Types">
+                    <button class="tab-btn active" data-session="work" role="tab" aria-selected="true">
+                        <span class="tab-icon" aria-hidden="true">💼</span>
+                        <span class="tab-label">Work</span>
+                    </button>
+                    <button class="tab-btn" data-session="shortBreak" role="tab" aria-selected="false">
+                        <span class="tab-icon" aria-hidden="true">☕</span>
+                        <span class="tab-label">Short Break</span>
+                    </button>
+                    <button class="tab-btn" data-session="longBreak" role="tab" aria-selected="false">
+                        <span class="tab-icon" aria-hidden="true">🌙</span>
+                        <span class="tab-label">Long Break</span>
+                    </button>
+                </div>
+
+                <div class="timer-progress-ring" aria-hidden="true">
+                    <svg class="progress-svg" viewBox="0 0 120 120">
+                        <circle class="progress-track" cx="60" cy="60" r="54" fill="none" stroke-width="4"/>
+                        <circle class="progress-fill" cx="60" cy="60" r="54" fill="none" stroke-width="4" stroke-linecap="round"/>
+                    </svg>
+                    <div class="timer-display" aria-live="polite">
+                        <span id="minutes">25</span>
+                        <span class="separator">:</span>
+                        <span id="seconds">00</span>
+                    </div>
+                </div>
+
+                <div class="session-info">
+                    <span id="session-label">Work Session</span>
+                    <span id="session-count">#1</span>
+                </div>
+
+                <div class="controls">
+                    <button id="start-btn" class="control-btn primary">Start</button>
+                    <button id="pause-btn" class="control-btn secondary hidden">Pause</button>
+                    <button id="reset-btn" class="control-btn secondary">Reset</button>
+                </div>
+            </section>
+
+            <!-- Stats Panel -->
+            <section class="stats-card" aria-label="Your Stats">
+                <div class="character-section">
+                    <div class="character-avatar" id="character-avatar" aria-hidden="true"></div>
+                    <div class="character-info">
+                        <div class="level-badge">Level <span id="level-num">1</span></div>
+                    </div>
+                </div>
+
+                <div class="xp-section">
+                    <div class="xp-header">
+                        <span>XP</span>
+                        <span id="xp-text">0 / 100</span>
+                    </div>
+                    <div class="xp-bar-container">
+                        <div class="xp-bar" id="xp-bar" style="width: 0%"></div>
+                    </div>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-item" id="stat-streak">
+                        <div class="stat-icon-wrap" aria-hidden="true">🔥</div>
+                        <div class="stat-value" id="streak-count">0</div>
+                        <div class="stat-label">Day Streak</div>
+                    </div>
+                    <div class="stat-item" id="stat-goal">
+                        <div class="stat-icon-wrap" aria-hidden="true">🎯</div>
+                        <div class="stat-value" id="daily-progress">0/6</div>
+                        <div class="stat-label">Today's Goal</div>
+                    </div>
+                    <div class="stat-item" id="stat-sessions">
+                        <div class="stat-icon-wrap" aria-hidden="true">🏆</div>
+                        <div class="stat-value" id="total-sessions">0</div>
+                        <div class="stat-label">Total Sessions</div>
+                    </div>
+                    <div class="stat-item" id="stat-xp">
+                        <div class="stat-icon-wrap" aria-hidden="true">⭐</div>
+                        <div class="stat-value" id="total-xp">0</div>
+                        <div class="stat-label">Total XP</div>
+                    </div>
+                </div>
+
+                <div class="daily-goal-section">
+                    <div class="daily-goal-header">
+                        <span>Daily Goal Progress</span>
+                        <span id="daily-goal-text">0 / 6 Pomodoros</span>
+                    </div>
+                    <div class="daily-goal-bar-container">
+                        <div class="daily-goal-bar" id="daily-goal-bar" style="width: 0%"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Achievements Toggle Button -->
+            <button id="badges-toggle-btn" class="achievements-toggle" aria-expanded="false" aria-controls="badges-panel">
+                <span>🏅 View Achievements</span>
+                <span class="toggle-arrow" aria-hidden="true">▼</span>
+            </button>
+
+            <!-- Achievements Panel -->
+            <section id="badges-panel" class="badges-card hidden" aria-label="Achievements">
+                <h3>Achievements</h3>
+                <div class="badges-grid" id="badges-grid">
+                    <!-- Badges will be dynamically inserted here -->
+                </div>
+            </section>
+
+            <!-- Analytics Toggle Button -->
+            <button id="analytics-toggle-btn" class="achievements-toggle analytics-toggle" aria-expanded="false" aria-controls="analytics-panel">
+                <span>📊 Productivity Analytics</span>
+                <span class="toggle-arrow" aria-hidden="true">▼</span>
+            </button>
+
+            <!-- Analytics Panel -->
+            <section id="analytics-panel" class="analytics-card hidden" aria-label="Productivity Analytics">
+                <!-- Daily Focus Chart -->
+                <div class="analytics-section">
+                    <h4>📊 Today's Focus</h4>
+                    <div id="daily-chart" class="daily-chart">
+                        <p class="empty-chart">Complete sessions to see your daily chart!</p>
+                    </div>
+                </div>
+
+                <!-- Weekly Focus Chart -->
+                <div class="analytics-section">
+                    <h4>📈 Weekly Focus</h4>
+                    <div id="weekly-chart" class="weekly-chart">
+                        <p class="empty-chart">Complete sessions to see your weekly chart!</p>
+                    </div>
+                </div>
+
+                <!-- Heatmap -->
+                <div class="analytics-section">
+                    <h4>🔥 Activity Heatmap</h4>
+                    <div id="heatmap-grid" class="heatmap-wrapper">
+                        <p class="empty-chart">Your activity heatmap will appear here!</p>
+                    </div>
+                </div>
+
+                <!-- Stats Row -->
+                <div class="analytics-stats-row">
+                    <div class="analytics-stat">
+                        <span class="analytics-stat-icon">🎯</span>
+                        <span class="analytics-stat-value" id="best-day-value">—</span>
+                        <span class="analytics-stat-label">Best Day</span>
+                        <span class="analytics-stat-sublabel" id="best-day-date">—</span>
+                    </div>
+                    <div class="analytics-stat">
+                        <span class="analytics-stat-icon">⏱️</span>
+                        <span class="analytics-stat-value" id="total-focus-time">0h 0m</span>
+                        <span class="analytics-stat-label">Total Focus Time</span>
+                    </div>
+                </div>
+
+                <!-- Session History -->
+                <div class="analytics-section">
+                    <h4>📝 Recent Sessions</h4>
+                    <div id="session-history-list" class="session-history">
+                        <p class="empty-history">Your session history will appear here!</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tasks Toggle Button -->
+            <button id="tasks-toggle-btn" class="achievements-toggle tasks-toggle" aria-expanded="false" aria-controls="tasks-panel">
+                <span>📝 Tasks</span>
+                <span class="toggle-arrow" aria-hidden="true">▼</span>
+            </button>
+
+            <!-- Tasks Panel -->
+            <section id="tasks-panel" class="tasks-card hidden" aria-label="Tasks">
+                <div class="tasks-header">
+                    <h3>My Tasks</h3>
+                    <span class="tasks-count" id="tasks-count">0/0</span>
+                </div>
+                <div class="folder-tabs" id="folder-tabs"></div>
+                <div class="task-input-row">
+                    <input type="text" id="task-input" class="task-input" placeholder="What are you working on?" maxlength="100">
+                    <button id="task-add-btn" class="task-add-btn">Add</button>
+                </div>
+                <div id="task-list" class="task-list">
+                    <p class="empty-tasks">Add a task to start focusing!</p>
+                </div>
+            </section>
+
+            <!-- Focus Environment Toggle Button -->
+            <button id="focus-toggle-btn" class="achievements-toggle focus-toggle" aria-expanded="false" aria-controls="focus-panel">
+                <span>🎧 Focus Environment</span>
+                <span class="toggle-arrow" aria-hidden="true">▼</span>
+            </button>
+
+            <!-- Focus Environment Panel -->
+            <section id="focus-panel" class="focus-card hidden" aria-label="Focus Environment">
+                <!-- Themes -->
+                <div class="focus-section">
+                    <h4>🎨 Themes</h4>
+                    <div id="theme-grid" class="theme-grid">
+                        <!-- Themes injected by JS -->
+                    </div>
+                </div>
+
+                <!-- Ambient Sounds -->
+                <div class="focus-section">
+                    <h4>🎵 Ambient Sounds</h4>
+                    <div id="ambient-controls" class="ambient-controls">
+                        <!-- Ambient controls injected by JS -->
+                    </div>
+                    <div class="ambient-volume-row">
+                        <span class="volume-icon">🔉</span>
+                        <input type="range" id="ambient-volume" class="ambient-volume-slider" min="0" max="1" step="0.05" value="0.5">
+                        <span class="volume-icon">🔊</span>
+                    </div>
+                </div>
+
+                <!-- Music Integration -->
+                <div class="focus-section">
+                    <h4>🎶 Focus Music</h4>
+                    <div class="music-tabs" role="tablist">
+                        <button class="music-tab-btn active" data-tab="spotify" role="tab" aria-selected="true">Spotify</button>
+                        <button class="music-tab-btn" data-tab="soundcloud" role="tab" aria-selected="false">SoundCloud</button>
+                    </div>
+
+                    <!-- Spotify Tab Content -->
+                    <div id="spotify-tab-content" class="music-tab-content">
+                        <div id="spotify-embed" class="music-embed">
+                            <iframe id="spotify-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/playlist/37i9dQZF1DX4wta20PHgwo?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                        </div>
+                        <div class="playlist-controls">
+                            <div class="playlist-input-wrap">
+                                <span class="playlist-input-icon">🔗</span>
+                                <input type="text" id="spotify-url-input" class="playlist-input" placeholder="Paste your Spotify playlist, album, or track link...">
+                            </div>
+                            <div class="playlist-actions">
+                                <button id="spotify-load-btn" class="playlist-btn primary">▶ Load Playlist</button>
+                                <button id="spotify-reset-btn" class="playlist-btn secondary">↺ Reset</button>
+                            </div>
+                            <p class="playlist-hint">Example: open.spotify.com/playlist/PLAYLIST_ID</p>
+                        </div>
+                    </div>
+
+                    <!-- SoundCloud Tab Content -->
+                    <div id="soundcloud-tab-content" class="music-tab-content hidden">
+                        <div id="soundcloud-embed" class="music-embed">
+                            <iframe id="soundcloud-iframe" width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/1472378785&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>
+                        </div>
+                        <div class="playlist-controls">
+                            <div class="playlist-input-wrap">
+                                <span class="playlist-input-icon">🔗</span>
+                                <input type="text" id="soundcloud-url-input" class="playlist-input" placeholder="Paste your SoundCloud playlist or track link...">
+                            </div>
+                            <div class="playlist-actions">
+                                <button id="soundcloud-load-btn" class="playlist-btn primary">▶ Load Track</button>
+                                <button id="soundcloud-reset-btn" class="playlist-btn secondary">↺ Reset</button>
+                            </div>
+                            <p class="playlist-hint">Example: soundcloud.com/artist/playlist-name</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <button id="settings-btn" class="icon-btn" title="Settings" aria-label="Settings">
+                <span class="settings-icon">⚙️</span>
+            </button>
+        </footer>
+    </div>
+
+    <!-- Settings Modal -->
+    <div id="settings-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="settings-title">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="settings-title">Settings</h2>
+                <button id="close-modal" class="icon-btn" aria-label="Close settings">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="setting-group">
+                    <h3>Durations (minutes)</h3>
+                    <div class="input-group">
+                        <label for="work-duration">Work</label>
+                        <input type="number" id="work-duration" min="1" max="120" value="25">
+                    </div>
+                    <div class="input-group">
+                        <label for="short-break-duration">Short Break</label>
+                        <input type="number" id="short-break-duration" min="1" max="60" value="5">
+                    </div>
+                    <div class="input-group">
+                        <label for="long-break-duration">Long Break</label>
+                        <input type="number" id="long-break-duration" min="1" max="60" value="15">
+                    </div>
+                </div>
+
+                <div class="setting-group">
+                    <h3>Daily Goal</h3>
+                    <div class="input-group">
+                        <label for="daily-goal-target">Target Pomodoros</label>
+                        <input type="number" id="daily-goal-target" min="1" max="50" value="6">
+                    </div>
+                </div>
+
+                <div class="setting-group">
+                    <h3>Options</h3>
+                    <div class="toggle-group">
+                        <label for="auto-cycle">Auto-cycle sessions</label>
+                        <input type="checkbox" id="auto-cycle" checked>
+                    </div>
+                    <div class="toggle-group">
+                        <label for="sound-enabled">Sound alerts</label>
+                        <input type="checkbox" id="sound-enabled" checked>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="save-settings" class="control-btn primary">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/state.js"></script>
+    <script src="js/dom.js"></script>
+    <script src="js/audio.js"></script>
+    <script src="js/timer.js"></script>
+    <script src="js/settings.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/gamification/config.js"></script>
+    <script src="js/gamification/xp.js"></script>
+    <script src="js/gamification/streaks.js"></script>
+    <script src="js/gamification/badges.js"></script>
+    <script src="js/gamification/dailyGoals.js"></script>
+    <script src="js/gamification/storage.js"></script>
+    <script src="js/gamification/ui.js"></script>
+    <script src="js/gamification/core.js"></script>
+    <script src="js/analytics/data.js"></script>
+    <script src="js/analytics/render.js"></script>
+    <script src="js/analytics/index.js"></script>
+    <script src="js/focus/themes.js"></script>
+    <script src="js/focus/ambient.js"></script>
+    <script src="js/focus/music.js"></script>
+    <script src="js/focus/index.js"></script>
+    <script src="js/tasks.js"></script>
+    <script src="js/events.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
+
