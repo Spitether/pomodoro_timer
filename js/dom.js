@@ -64,6 +64,11 @@ Pomodoro.dom = {
     soundcloudUrlInput: document.getElementById('soundcloud-url-input'),
     soundcloudLoadBtn: document.getElementById('soundcloud-load-btn'),
     soundcloudResetBtn: document.getElementById('soundcloud-reset-btn'),
+    // Shield elements
+    shieldEnabled: document.getElementById('shield-enabled'),
+    shieldStrictMode: document.getElementById('shield-strict-mode'),
+    shieldPenalty: document.getElementById('shield-penalty'),
+    shieldThreshold: document.getElementById('shield-threshold'),
     // Tasks elements
     tasksToggleBtn: document.getElementById('tasks-toggle-btn'),
     tasksPanel: document.getElementById('tasks-panel'),

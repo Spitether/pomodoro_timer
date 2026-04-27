@@ -69,3 +69,153 @@
     50% { opacity: 0.75; }
 }
 
+/* ============ ANTI-DISTRACTION SHIELD ============ */
+
+/* Warning Overlay */
+.shield-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3000;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    padding: 20px;
+}
+
+.shield-overlay.show {
+    opacity: 1;
+}
+
+.shield-card {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    padding: 32px 28px;
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+    transform: scale(0.9);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.shield-overlay.show .shield-card {
+    transform: scale(1);
+}
+
+.shield-icon {
+    font-size: 3rem;
+    margin-bottom: 12px;
+    display: block;
+}
+
+.shield-card h3 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--text-color);
+    margin-bottom: 12px;
+}
+
+.shield-card p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin-bottom: 8px;
+    line-height: 1.5;
+}
+
+.shield-penalty {
+    color: var(--primary-color) !important;
+    font-weight: 700;
+    font-size: 1.1rem !important;
+}
+
+.shield-tip {
+    font-size: 0.85rem !important;
+    color: var(--text-muted);
+    margin: 16px 0 20px;
+    padding: 10px 14px;
+    background: var(--secondary-color);
+    border-radius: 10px;
+}
+
+/* Strict Mode Overlay */
+.shield-strict-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(6px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3000;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.shield-strict-overlay.show {
+    opacity: 1;
+}
+
+.shield-strict-content {
+    text-align: center;
+    color: white;
+    padding: 20px;
+}
+
+.shield-strict-icon {
+    font-size: 4rem;
+    margin-bottom: 16px;
+    display: block;
+}
+
+.shield-strict-content h2 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.shield-strict-content p {
+    font-size: 1.05rem;
+    opacity: 0.9;
+    margin-bottom: 8px;
+}
+
+.shield-strict-sub {
+    font-size: 0.9rem !important;
+    opacity: 0.7 !important;
+}
+
+/* Setting hint */
+.setting-hint {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 10px;
+    line-height: 1.4;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+    .shield-card {
+        padding: 24px 20px;
+    }
+
+    .shield-icon {
+        font-size: 2.5rem;
+    }
+
+    .shield-card h3 {
+        font-size: 1.15rem;
+    }
+
+    .shield-strict-icon {
+        font-size: 3rem;
+    }
+
+    .shield-strict-content h2 {
+        font-size: 1.3rem;
+    }
+}
+

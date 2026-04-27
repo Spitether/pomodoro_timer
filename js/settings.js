@@ -13,6 +13,10 @@ Pomodoro.settings = (function() {
         dom.dailyGoalTarget.value = state.gamification.dailyGoalTarget;
         dom.autoCycle.checked = state.settings.autoCycle;
         dom.soundEnabled.checked = state.settings.soundEnabled;
+        if (dom.shieldEnabled) dom.shieldEnabled.checked = state.shield.enabled;
+        if (dom.shieldStrictMode) dom.shieldStrictMode.checked = state.shield.strictMode;
+        if (dom.shieldPenalty) dom.shieldPenalty.checked = state.shield.penaltyEnabled;
+        if (dom.shieldThreshold) dom.shieldThreshold.value = state.shield.distractionThreshold;
         dom.settingsModal.classList.remove('hidden');
     }
 
@@ -41,6 +45,16 @@ Pomodoro.settings = (function() {
         state.settings.autoCycle = dom.autoCycle.checked;
         state.settings.soundEnabled = dom.soundEnabled.checked;
         state.gamification.dailyGoalTarget = dailyGoal;
+
+        if (dom.shieldEnabled) state.shield.enabled = dom.shieldEnabled.checked;
+        if (dom.shieldStrictMode) state.shield.strictMode = dom.shieldStrictMode.checked;
+        if (dom.shieldPenalty) state.shield.penaltyEnabled = dom.shieldPenalty.checked;
+        if (dom.shieldThreshold) {
+            const threshold = parseInt(dom.shieldThreshold.value, 10);
+            state.shield.distractionThreshold = isNaN(threshold) || threshold < 3 ? 10 : threshold;
+        }
+
+        localStorage.setItem('pomodoroShield', JSON.stringify(state.shield));
 
         localStorage.setItem('pomodoroSettings', JSON.stringify(state.settings));
         Pomodoro.gamificationStorage.save();

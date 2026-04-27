@@ -23,6 +23,7 @@
         Pomodoro.focusEnv.init();
         Pomodoro.focusMusic.restoreCustomPlaylists();
         Pomodoro.tasks.init();
+        Pomodoro.shield.init();
     }
 
     if (document.readyState === 'loading') {

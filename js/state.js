@@ -45,6 +45,18 @@ Pomodoro.state = {
         dailyGoalTarget: 6,
         sessionHistory: [],
         bestDay: { date: null, count: 0 }
+    },
+    shield: {
+        enabled: true,
+        strictMode: false,
+        distractionThreshold: 10,
+        penaltyEnabled: true,
+        penaltyXP: 5
+    },
+    shieldStats: {
+        distractionsToday: 0,
+        totalTimeAway: 0,
+        lastDistractionAt: null
     }
 };
 
