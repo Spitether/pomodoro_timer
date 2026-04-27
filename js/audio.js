@@ -5,9 +5,8 @@ Pomodoro.audio = (function() {
 
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
-    // Ambient sound nodes (persist while playing)
-    let ambientNodes = null;
-    let cafeAudio = null;
+    // Ambient state
+    let ambientNodes = null;   // { masterGain, source?, lfo?, mp3Audio?, type }
 
     function playAlert() {
         if (!Pomodoro.state.settings.soundEnabled) return;
@@ -79,6 +78,13 @@ Pomodoro.audio = (function() {
         return buffer;
     }
 
+    function buildMasterGain(volume) {
+        const g = audioCtx.createGain();
+        g.gain.value = volume;
+        g.connect(audioCtx.destination);
+        return g;
+    }
+
     function playAmbient(type, volume) {
         stopAmbient();
 
@@ -86,9 +92,7 @@ Pomodoro.audio = (function() {
             audioCtx.resume();
         }
 
-        const masterGain = audioCtx.createGain();
-        masterGain.gain.value = volume;
-        masterGain.connect(audioCtx.destination);
+        const masterGain = buildMasterGain(volume);
 
         if (type === 'white') {
             const buffer = createNoiseBuffer();
@@ -104,72 +108,61 @@ Pomodoro.audio = (function() {
             filter.connect(masterGain);
             source.start();
 
-            ambientNodes = { source, masterGain };
+            ambientNodes = { source, masterGain, type: 'synth' };
         }
         else if (type === 'rain') {
-            const buffer = createPinkNoiseBuffer();
-            const source = audioCtx.createBufferSource();
-            source.buffer = buffer;
-            source.loop = true;
+            // Play real rain MP3
+            const mp3Audio = new Audio('audio/rain.mp3');
+            mp3Audio.loop = true;
+            mp3Audio.volume = 1;
 
-            const filter = audioCtx.createBiquadFilter();
-            filter.type = 'lowpass';
-            filter.frequency.value = 600;
-            filter.Q.value = 0.5;
-
-            // Amplitude modulation for rain texture
-            const lfo = audioCtx.createOscillator();
-            lfo.type = 'sine';
-            lfo.frequency.value = 12;
-            const lfoGain = audioCtx.createGain();
-            lfoGain.gain.value = 0.15;
-            lfo.connect(lfoGain);
-
-            const rainGain = audioCtx.createGain();
-            rainGain.gain.value = 1;
-            lfoGain.connect(rainGain.gain);
-
-            source.connect(filter);
-            filter.connect(rainGain);
-            rainGain.connect(masterGain);
-            lfo.start();
-            source.start();
-
-            ambientNodes = { source, masterGain, lfo };
-        }
-        else if (type === 'cafe') {
-            // Play real café ambiance MP3
-            cafeAudio = new Audio('audio/Cafe.mp3');
-            cafeAudio.loop = true;
-            cafeAudio.volume = 1;
-
-            const source = audioCtx.createMediaElementSource(cafeAudio);
+            const source = audioCtx.createMediaElementSource(mp3Audio);
             source.connect(masterGain);
 
-            cafeAudio.play().catch(e => console.log('Café audio play failed:', e));
+            mp3Audio.play().catch(e => console.log('Rain audio play failed:', e));
 
-            ambientNodes = { source, masterGain, cafeAudio };
+            ambientNodes = { source, masterGain, mp3Audio, type: 'mp3' };
+        }
+        else if (type === 'cafe') {
+            // Play real café MP3
+            const mp3Audio = new Audio('audio/Cafe.mp3');
+            mp3Audio.loop = true;
+            mp3Audio.volume = 1;
+
+            const source = audioCtx.createMediaElementSource(mp3Audio);
+            source.connect(masterGain);
+
+            mp3Audio.play().catch(e => console.log('Café audio play failed:', e));
+
+            ambientNodes = { source, masterGain, mp3Audio, type: 'mp3' };
         }
     }
 
     function stopAmbient() {
         if (!ambientNodes) return;
-        try {
-            if (ambientNodes.lfo) ambientNodes.lfo.stop();
-            if (ambientNodes.source) ambientNodes.source.stop();
-            if (ambientNodes.cafeAudio) {
-                ambientNodes.cafeAudio.pause();
-                ambientNodes.cafeAudio.currentTime = 0;
-            }
-        } catch (e) {
-            // Already stopped
+
+        if (ambientNodes.type === 'mp3' && ambientNodes.mp3Audio) {
+            ambientNodes.mp3Audio.pause();
+            ambientNodes.mp3Audio.currentTime = 0;
         }
+
+        if (ambientNodes.type === 'synth') {
+            try {
+                if (ambientNodes.lfo) ambientNodes.lfo.stop();
+                if (ambientNodes.source) ambientNodes.source.stop();
+            } catch (e) {
+                // Already stopped
+            }
+        }
+
         ambientNodes = null;
     }
 
     function setAmbientVolume(volume) {
         if (ambientNodes && ambientNodes.masterGain) {
-            ambientNodes.masterGain.gain.setValueAtTime(volume, audioCtx.currentTime);
+            // Smooth volume ramp
+            const now = audioCtx.currentTime;
+            ambientNodes.masterGain.gain.setTargetAtTime(volume, now, 0.05);
         }
     }
 
