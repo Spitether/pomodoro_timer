@@ -430,3 +430,67 @@
     vertical-align: middle;
 }
 
+/* Responsive */
+@media (max-width: 640px) {
+    .tasks-card {
+        padding: 20px;
+    }
+
+    .task-input-row {
+        flex-direction: column;
+    }
+
+    .task-add-btn {
+        width: 100%;
+        padding: 12px;
+    }
+
+    .task-row {
+        gap: 10px;
+    }
+
+    .task-actions button {
+        width: 36px;
+        height: 36px;
+    }
+
+    .folder-tab {
+        padding: 5px 12px;
+        font-size: 0.75rem;
+    }
+
+    .task-target-editor,
+    .task-move-editor {
+        flex-wrap: wrap;
+    }
+}
+
+@media (max-width: 380px) {
+    .tasks-card {
+        padding: 16px;
+    }
+
+    .task-item {
+        padding: 12px;
+    }
+
+    .task-text {
+        font-size: 0.85rem;
+    }
+
+    .task-actions {
+        gap: 4px;
+    }
+
+    .task-actions button {
+        width: 32px;
+        height: 32px;
+        font-size: 0.85rem;
+    }
+
+    .task-checkbox {
+        width: 22px;
+        height: 22px;
+    }
+}
+

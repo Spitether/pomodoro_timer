@@ -140,7 +140,10 @@ footer {
     }
 
     .stats-card,
-    .badges-card {
+    .badges-card,
+    .analytics-card,
+    .tasks-card,
+    .focus-card {
         padding: 20px;
     }
 }
@@ -156,5 +159,18 @@ footer {
 
     .timer-card {
         padding: 24px 16px;
+    }
+
+    .stats-card,
+    .badges-card,
+    .analytics-card,
+    .tasks-card,
+    .focus-card {
+        padding: 16px;
+    }
+
+    .achievements-toggle {
+        padding: 12px 16px;
+        font-size: 0.9rem;
     }
 }
