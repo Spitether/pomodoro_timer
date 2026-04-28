@@ -23,6 +23,12 @@ header h1 {
     background-clip: text;
 }
 
+.header-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
 footer {
     display: flex;
     justify-content: center;

@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pomodoro Timer</title>
+    <link rel="icon" type="image/x-icon" href="favicon_io/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon_io/apple-touch-icon.png">
+    <link rel="manifest" href="favicon_io/site.webmanifest">
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/themes.css">
     <link rel="stylesheet" href="css/layout.css">
@@ -21,13 +26,18 @@
     <div class="app-container">
         <header>
             <h1>Pomodoro Timer</h1>
-            <button id="theme-toggle" class="theme-toggle-switch" title="Toggle Dark Mode" aria-label="Toggle Dark Mode" aria-pressed="false">
-                <span class="theme-toggle-track">
-                    <span class="theme-toggle-thumb">
-                        <span class="theme-toggle-icon">🌙</span>
+            <div class="header-controls">
+                <button id="settings-btn" class="icon-btn" title="Settings" aria-label="Settings">
+                    <span class="settings-icon">⚙️</span>
+                </button>
+                <button id="theme-toggle" class="theme-toggle-switch" title="Toggle Dark Mode" aria-label="Toggle Dark Mode" aria-pressed="false">
+                    <span class="theme-toggle-track">
+                        <span class="theme-toggle-thumb">
+                            <span class="theme-toggle-icon">🌙</span>
+                        </span>
                     </span>
-                </span>
-            </button>
+                </button>
+            </div>
         </header>
 
         <main>
@@ -293,11 +303,7 @@
             </section>
         </main>
 
-        <footer>
-            <button id="settings-btn" class="icon-btn" title="Settings" aria-label="Settings">
-                <span class="settings-icon">⚙️</span>
-            </button>
-        </footer>
+        <footer></footer>
     </div>
 
     <!-- Settings Modal -->
