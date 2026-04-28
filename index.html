@@ -26,13 +26,18 @@
     <div class="app-container">
         <header>
             <h1>Pomodoro Timer</h1>
-            <button id="theme-toggle" class="theme-toggle-switch" title="Toggle Dark Mode" aria-label="Toggle Dark Mode" aria-pressed="false">
-                <span class="theme-toggle-track">
-                    <span class="theme-toggle-thumb">
-                        <span class="theme-toggle-icon">🌙</span>
+            <div class="header-controls">
+                <button id="settings-btn" class="icon-btn" title="Settings" aria-label="Settings">
+                    <span class="settings-icon">⚙️</span>
+                </button>
+                <button id="theme-toggle" class="theme-toggle-switch" title="Toggle Dark Mode" aria-label="Toggle Dark Mode" aria-pressed="false">
+                    <span class="theme-toggle-track">
+                        <span class="theme-toggle-thumb">
+                            <span class="theme-toggle-icon">🌙</span>
+                        </span>
                     </span>
-                </span>
-            </button>
+                </button>
+            </div>
         </header>
 
         <main>
@@ -298,11 +303,7 @@
             </section>
         </main>
 
-        <footer>
-            <button id="settings-btn" class="icon-btn" title="Settings" aria-label="Settings">
-                <span class="settings-icon">⚙️</span>
-            </button>
-        </footer>
+        <footer></footer>
     </div>
 
     <!-- Settings Modal -->
