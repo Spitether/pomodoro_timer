@@ -38,7 +38,7 @@
                     </span>
                 </button>
             </div>
-        </header>
+</header>
 
         <main>
             <!-- Timer Section -->
@@ -82,137 +82,8 @@
                 </div>
             </section>
 
-            <!-- Stats Panel -->
-            <section class="stats-card" aria-label="Your Stats">
-                <div class="character-section">
-                    <div class="character-avatar" id="character-avatar" aria-hidden="true"></div>
-                    <div class="character-info">
-                        <div class="level-badge">Level <span id="level-num">1</span></div>
-                    </div>
-                </div>
-
-                <div class="xp-section">
-                    <div class="xp-header">
-                        <span>XP</span>
-                        <span id="xp-text">0 / 100</span>
-                    </div>
-                    <div class="xp-bar-container">
-                        <div class="xp-bar" id="xp-bar" style="width: 0%"></div>
-                    </div>
-                </div>
-
-                <div class="stats-grid">
-                    <div class="stat-item" id="stat-streak">
-                        <div class="stat-icon-wrap" aria-hidden="true">🔥</div>
-                        <div class="stat-value" id="streak-count">0</div>
-                        <div class="stat-label">Day Streak</div>
-                    </div>
-                    <div class="stat-item" id="stat-goal">
-                        <div class="stat-icon-wrap" aria-hidden="true">🎯</div>
-                        <div class="stat-value" id="daily-progress">0/6</div>
-                        <div class="stat-label">Today's Goal</div>
-                    </div>
-                    <div class="stat-item" id="stat-sessions">
-                        <div class="stat-icon-wrap" aria-hidden="true">🏆</div>
-                        <div class="stat-value" id="total-sessions">0</div>
-                        <div class="stat-label">Total Sessions</div>
-                    </div>
-                    <div class="stat-item" id="stat-xp">
-                        <div class="stat-icon-wrap" aria-hidden="true">⭐</div>
-                        <div class="stat-value" id="total-xp">0</div>
-                        <div class="stat-label">Total XP</div>
-                    </div>
-                </div>
-
-                <div class="daily-goal-section">
-                    <div class="daily-goal-header">
-                        <span>Daily Goal Progress</span>
-                        <span id="daily-goal-text">0 / 6 Pomodoros</span>
-                    </div>
-                    <div class="daily-goal-bar-container">
-                        <div class="daily-goal-bar" id="daily-goal-bar" style="width: 0%"></div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Achievements Toggle Button -->
-            <button id="badges-toggle-btn" class="achievements-toggle" aria-expanded="false" aria-controls="badges-panel">
-                <span>🏅 View Achievements</span>
-                <span class="toggle-arrow" aria-hidden="true">▼</span>
-            </button>
-
-            <!-- Achievements Panel -->
-            <section id="badges-panel" class="badges-card hidden" aria-label="Achievements">
-                <h3>Achievements</h3>
-                <div class="badges-grid" id="badges-grid">
-                    <!-- Badges will be dynamically inserted here -->
-                </div>
-            </section>
-
-            <!-- Analytics Toggle Button -->
-            <button id="analytics-toggle-btn" class="achievements-toggle analytics-toggle" aria-expanded="false" aria-controls="analytics-panel">
-                <span>📊 Productivity Analytics</span>
-                <span class="toggle-arrow" aria-hidden="true">▼</span>
-            </button>
-
-            <!-- Analytics Panel -->
-            <section id="analytics-panel" class="analytics-card hidden" aria-label="Productivity Analytics">
-                <!-- Daily Focus Chart -->
-                <div class="analytics-section">
-                    <h4>📊 Today's Focus</h4>
-                    <div id="daily-chart" class="daily-chart">
-                        <p class="empty-chart">Complete sessions to see your daily chart!</p>
-                    </div>
-                </div>
-
-                <!-- Weekly Focus Chart -->
-                <div class="analytics-section">
-                    <h4>📈 Weekly Focus</h4>
-                    <div id="weekly-chart" class="weekly-chart">
-                        <p class="empty-chart">Complete sessions to see your weekly chart!</p>
-                    </div>
-                </div>
-
-                <!-- Heatmap -->
-                <div class="analytics-section">
-                    <h4>🔥 Activity Heatmap</h4>
-                    <div id="heatmap-grid" class="heatmap-wrapper">
-                        <p class="empty-chart">Your activity heatmap will appear here!</p>
-                    </div>
-                </div>
-
-                <!-- Stats Row -->
-                <div class="analytics-stats-row">
-                    <div class="analytics-stat">
-                        <span class="analytics-stat-icon">🎯</span>
-                        <span class="analytics-stat-value" id="best-day-value">—</span>
-                        <span class="analytics-stat-label">Best Day</span>
-                        <span class="analytics-stat-sublabel" id="best-day-date">—</span>
-                    </div>
-                    <div class="analytics-stat">
-                        <span class="analytics-stat-icon">⏱️</span>
-                        <span class="analytics-stat-value" id="total-focus-time">0h 0m</span>
-                        <span class="analytics-stat-label">Total Focus Time</span>
-                    </div>
-                </div>
-
-                <!-- Session History -->
-                <div class="analytics-section">
-                    <h4>📝 Recent Sessions</h4>
-                    <div id="session-history-list" class="session-history">
-                        <p class="empty-history">Your session history will appear here!</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Tasks Toggle Button -->
-            <button id="tasks-toggle-btn" class="achievements-toggle tasks-toggle" aria-expanded="false" aria-controls="tasks-panel">
-                <span>📝 Tasks</span>
-                <span class="toggle-arrow" aria-hidden="true">▼</span>
-            </button>
-
-            <!-- Tasks Panel -->
-            <section id="tasks-panel" class="tasks-card hidden" aria-label="Tasks">
+            <!-- Tasks Panel - Always Visible -->
+            <section id="tasks-panel" class="tasks-card" aria-label="Tasks">
                 <div class="tasks-header">
                     <h3>My Tasks</h3>
                     <span class="tasks-count" id="tasks-count">0/0</span>
@@ -227,14 +98,8 @@
                 </div>
             </section>
 
-            <!-- Focus Environment Toggle Button -->
-            <button id="focus-toggle-btn" class="achievements-toggle focus-toggle" aria-expanded="false" aria-controls="focus-panel">
-                <span>🎧 Focus Environment</span>
-                <span class="toggle-arrow" aria-hidden="true">▼</span>
-            </button>
-
-            <!-- Focus Environment Panel -->
-            <section id="focus-panel" class="focus-card hidden" aria-label="Focus Environment">
+            <!-- Focus Environment - Always Visible -->
+            <section id="focus-panel" class="focus-card" aria-label="Focus Environment">
                 <!-- Themes -->
                 <div class="focus-section">
                     <h4>🎨 Themes</h4>
@@ -300,8 +165,121 @@
                         </div>
                     </div>
                 </div>
-            </section>
+</section>
         </main>
+
+        <!-- Sidebar for Achievements and Analytics -->
+        <aside class="sidebar">
+            <div class="sidebar-tabs" role="tablist" aria-label="Sidebar Sections">
+                <button class="sidebar-tab active" data-sidebar="achievements" role="tab" aria-selected="true">
+                    🏅 Achievements
+                </button>
+                <button class="sidebar-tab" data-sidebar="analytics" role="tab" aria-selected="false">
+                    📊 Analytics
+                </button>
+            </div>
+
+            <!-- Profile Card in Sidebar -->
+            <section class="profile-card" aria-label="Profile">
+                <div class="character-section">
+                    <div class="character-avatar" id="character-avatar" aria-hidden="true"></div>
+                    <div class="character-info">
+                        <div class="level-badge">Level <span id="level-num">1</span></div>
+                    </div>
+                </div>
+
+                <div class="xp-section">
+                    <div class="xp-header">
+                        <span>XP</span>
+                        <span id="xp-text">0 / 100</span>
+                    </div>
+                    <div class="xp-bar-container">
+                        <div class="xp-bar" id="xp-bar" style="width: 0%"></div>
+                    </div>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-item" id="stat-streak">
+                        <div class="stat-icon-wrap" aria-hidden="true">🔥</div>
+                        <div class="stat-value" id="streak-count">0</div>
+                        <div class="stat-label">Day Streak</div>
+                    </div>
+                    <div class="stat-item" id="stat-goal">
+                        <div class="stat-icon-wrap" aria-hidden="true">🎯</div>
+                        <div class="stat-value" id="daily-progress">0/6</div>
+                        <div class="stat-label">Today's Goal</div>
+                    </div>
+                    <div class="stat-item" id="stat-sessions">
+                        <div class="stat-icon-wrap" aria-hidden="true">🏆</div>
+                        <div class="stat-value" id="total-sessions">0</div>
+                        <div class="stat-label">Total Sessions</div>
+                    </div>
+                    <div class="stat-item" id="stat-xp">
+                        <div class="stat-icon-wrap" aria-hidden="true">⭐</div>
+                        <div class="stat-value" id="total-xp">0</div>
+                        <div class="stat-label">Total XP</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Achievements Panel -->
+            <section id="badges-panel" class="sidebar-panel" aria-label="Achievements">
+                <h3>Achievements</h3>
+                <div class="badges-grid" id="badges-grid">
+                    <!-- Badges will be dynamically inserted here -->
+                </div>
+            </section>
+
+            <!-- Analytics Panel -->
+            <section id="analytics-panel" class="sidebar-panel hidden" aria-label="Productivity Analytics">
+                <!-- Daily Focus Chart -->
+                <div class="analytics-section">
+                    <h4>📊 Today's Focus</h4>
+                    <div id="daily-chart" class="daily-chart">
+                        <p class="empty-chart">Complete sessions to see your daily chart!</p>
+                    </div>
+                </div>
+
+                <!-- Weekly Focus Chart -->
+                <div class="analytics-section">
+                    <h4>📈 Weekly Focus</h4>
+                    <div id="weekly-chart" class="weekly-chart">
+                        <p class="empty-chart">Complete sessions to see your weekly chart!</p>
+                    </div>
+                </div>
+
+                <!-- Heatmap -->
+                <div class="analytics-section">
+                    <h4>🔥 Activity Heatmap</h4>
+                    <div id="heatmap-grid" class="heatmap-wrapper">
+                        <p class="empty-chart">Your activity heatmap will appear here!</p>
+                    </div>
+                </div>
+
+                <!-- Stats Row -->
+                <div class="analytics-stats-row">
+                    <div class="analytics-stat">
+                        <span class="analytics-stat-icon">🎯</span>
+                        <span class="analytics-stat-value" id="best-day-value">—</span>
+                        <span class="analytics-stat-label">Best Day</span>
+                        <span class="analytics-stat-sublabel" id="best-day-date">—</span>
+                    </div>
+                    <div class="analytics-stat">
+                        <span class="analytics-stat-icon">⏱️</span>
+                        <span class="analytics-stat-value" id="total-focus-time">0h 0m</span>
+                        <span class="analytics-stat-label">Total Focus Time</span>
+                    </div>
+                </div>
+
+                <!-- Session History -->
+                <div class="analytics-section">
+                    <h4>📝 Recent Sessions</h4>
+                    <div id="session-history-list" class="session-history">
+                        <p class="empty-history">Your session history will appear here!</p>
+                    </div>
+                </div>
+            </section>
+        </aside>
 
         <footer></footer>
     </div>

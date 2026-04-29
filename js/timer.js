@@ -128,9 +128,11 @@ Pomodoro.timer = (function() {
             Pomodoro.gamificationCore.onSessionComplete(rect.left + rect.width / 2, rect.top);
         }
 
+        // Always auto-switch session
+        const nextSession = determineNextSession();
+        switchSession(nextSession);
+        
         if (state.settings.autoCycle) {
-            const nextSession = determineNextSession();
-            switchSession(nextSession);
             state.isRunning = false; // Reset so start() works
             start();
         } else {

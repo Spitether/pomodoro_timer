@@ -5,6 +5,31 @@ Pomodoro.gamificationCore = (function() {
 
     const config = Pomodoro.GamificationConfig;
     const gamification = Pomodoro.state.gamification;
+    const state = Pomodoro.state;
+
+    function calculateXP(sessionType) {
+        // Get session duration from settings
+        const workMinutes = state.settings.work || 25;
+        const shortBreakMinutes = state.settings.shortBreak || 5;
+        const longBreakMinutes = state.settings.longBreak || 15;
+
+        let xpGained;
+
+        if (sessionType === 'work') {
+            // Work sessions: Base + (work minutes * multiplier)
+            // Longer work = more XP
+            xpGained = Math.round(config.XP_BASE + (workMinutes * config.WORK_XP_PER_MINUTE));
+        } else {
+            // Break sessions: Base - (break minutes * penalty)
+            // Shorter break = more XP (less penalty)
+            const breakMinutes = sessionType === 'shortBreak' ? shortBreakMinutes : longBreakMinutes;
+            xpGained = Math.round(config.XP_BASE - (breakMinutes * config.BREAK_XP_PENALTY_PER_MINUTE));
+            // Ensure minimum XP is at least 0 for breaks
+            xpGained = Math.max(0, xpGained);
+        }
+
+        return xpGained;
+    }
 
     function onSessionComplete(x, y) {
         Pomodoro.streaks.check();
@@ -18,7 +43,8 @@ Pomodoro.gamificationCore = (function() {
 
         Pomodoro.streaks.checkTimeBasedAchievements();
 
-        const xpGained = config.XP_PER_SESSION;
+        // Calculate XP based on session type and duration ratio
+        const xpGained = calculateXP(state.currentSession);
         Pomodoro.xp.addXP(xpGained);
         Pomodoro.gamificationUI.showXPGain(xpGained, x, y);
 
@@ -34,6 +60,6 @@ Pomodoro.gamificationCore = (function() {
         return { xpGained };
     }
 
-    return { onSessionComplete };
+    return { onSessionComplete, calculateXP };
 })();
 

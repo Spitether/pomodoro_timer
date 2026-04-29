@@ -1,7 +1,9 @@
 window.Pomodoro = window.Pomodoro || {};
 
 Pomodoro.GamificationConfig = {
-    XP_PER_SESSION: 25,
+    XP_BASE: 10,
+    WORK_XP_PER_MINUTE: 2,
+    BREAK_XP_PENALTY_PER_MINUTE: 0.5,
     DAILY_GOAL_TARGET: 6,
 
     LEVEL_TITLES: [

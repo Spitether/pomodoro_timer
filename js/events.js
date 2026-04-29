@@ -7,28 +7,19 @@ Pomodoro.events = (function() {
     const timer = Pomodoro.timer;
     const state = Pomodoro.state;
 
-    function toggleAchievements() {
-        const isExpanded = dom.badgesToggleBtn.getAttribute('aria-expanded') === 'true';
-        dom.badgesToggleBtn.setAttribute('aria-expanded', String(!isExpanded));
-        dom.badgesPanel.classList.toggle('hidden');
-    }
-
-    function toggleAnalytics() {
-        const isExpanded = dom.analyticsToggleBtn.getAttribute('aria-expanded') === 'true';
-        dom.analyticsToggleBtn.setAttribute('aria-expanded', String(!isExpanded));
-        dom.analyticsPanel.classList.toggle('hidden');
-    }
-
-    function toggleFocusEnvironment() {
-        const isExpanded = dom.focusToggleBtn.getAttribute('aria-expanded') === 'true';
-        dom.focusToggleBtn.setAttribute('aria-expanded', String(!isExpanded));
-        dom.focusPanel.classList.toggle('hidden');
-    }
-
-    function toggleTasks() {
-        const isExpanded = dom.tasksToggleBtn.getAttribute('aria-expanded') === 'true';
-        dom.tasksToggleBtn.setAttribute('aria-expanded', String(!isExpanded));
-        dom.tasksPanel.classList.toggle('hidden');
+    function toggleSidebarTab(tabName) {
+        document.querySelectorAll('.sidebar-tab').forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.sidebar === tabName);
+            btn.setAttribute('aria-selected', String(btn.dataset.sidebar === tabName));
+        });
+        
+        document.querySelectorAll('.sidebar-panel').forEach(panel => {
+            if (panel.id === 'badges-panel') {
+                panel.classList.toggle('hidden', tabName !== 'achievements');
+            } else if (panel.id === 'analytics-panel') {
+                panel.classList.toggle('hidden', tabName !== 'analytics');
+            }
+        });
     }
 
     function init() {
@@ -40,10 +31,13 @@ Pomodoro.events = (function() {
         dom.settingsBtn.addEventListener('click', Pomodoro.settings.open);
         dom.closeModal.addEventListener('click', Pomodoro.settings.close);
         dom.saveSettings.addEventListener('click', Pomodoro.settings.save);
-        dom.badgesToggleBtn.addEventListener('click', toggleAchievements);
-        dom.analyticsToggleBtn.addEventListener('click', toggleAnalytics);
-        dom.focusToggleBtn.addEventListener('click', toggleFocusEnvironment);
-        dom.tasksToggleBtn.addEventListener('click', toggleTasks);
+
+        // Sidebar tab switching
+        document.querySelectorAll('.sidebar-tab').forEach(btn => {
+            btn.addEventListener('click', () => {
+                toggleSidebarTab(btn.dataset.sidebar);
+            });
+        });
 
         if (dom.taskAddBtn) {
             dom.taskAddBtn.addEventListener('click', () => {

@@ -1,15 +1,19 @@
 /* Layout & Cards */
 .app-container {
     width: 100%;
-    max-width: 540px;
+    max-width: 900px;
     margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
 }
 
 header {
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 32px;
+    margin-bottom: 24px;
     padding: 0 4px;
 }
 
@@ -29,7 +33,15 @@ header h1 {
     gap: 8px;
 }
 
+/* Main Content Area */
+main {
+    flex: 1;
+    min-width: 300px;
+    max-width: 540px;
+}
+
 footer {
+    width: 100%;
     display: flex;
     justify-content: center;
     margin-top: 32px;
@@ -37,8 +49,8 @@ footer {
 }
 
 .timer-card,
-.stats-card,
-.badges-card {
+.tasks-card,
+.focus-card {
     background-color: var(--card-bg);
     border-radius: var(--radius);
     box-shadow: var(--shadow);
@@ -48,16 +60,67 @@ footer {
 .timer-card {
     padding: 40px 28px 36px;
     text-align: center;
+    margin-bottom: 24px;
 }
 
-.stats-card {
-    padding: 28px;
-    margin-top: 24px;
+.tasks-card {
+    margin-bottom: 24px;
 }
 
-.badges-card {
-    padding: 28px;
-    margin-top: 24px;
+/* Sidebar */
+.sidebar {
+    flex: 0 0 320px;
+    max-width: 320px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.profile-card {
+    background-color: var(--card-bg);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 24px;
+}
+
+.sidebar-panel {
+    background-color: var(--card-bg);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 24px;
+    transition: var(--transition);
+}
+
+/* Sidebar Tabs */
+.sidebar-tabs {
+    display: flex;
+    gap: 8px;
+    background-color: var(--card-bg);
+    border-radius: var(--radius);
+    padding: 6px;
+    box-shadow: var(--shadow);
+}
+
+.sidebar-tab {
+    flex: 1;
+    padding: 10px 14px;
+    border: none;
+    border-radius: calc(var(--radius) - 4px);
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.sidebar-tab:hover {
+    color: var(--text-color);
+}
+
+.sidebar-tab.active {
+    background-color: var(--primary-color);
+    color: white;
 }
 
 /* Section dividers */
@@ -113,18 +176,12 @@ footer {
     font-size: 0.8rem;
 }
 
-/* Panel expand animation */
-.badges-card,
-.analytics-card,
-.tasks-card,
-.focus-card {
+/* Panel expand animation - for sidebar panels */
+.sidebar-panel {
     transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-.badges-card.hidden,
-.analytics-card.hidden,
-.tasks-card.hidden,
-.focus-card.hidden {
+.sidebar-panel.hidden {
     opacity: 0;
     transform: translateY(-8px);
     pointer-events: none;
@@ -132,9 +189,30 @@ footer {
 }
 
 /* Responsive */
+@media (max-width: 900px) {
+    .app-container {
+        flex-direction: column;
+        max-width: 540px;
+    }
+    
+    main {
+        max-width: 100%;
+    }
+    
+    .sidebar {
+        flex: 1;
+        max-width: 100%;
+        width: 100%;
+    }
+}
+
 @media (max-width: 640px) {
     body {
         padding: 16px 12px;
+    }
+
+    header {
+        margin-bottom: 16px;
     }
 
     header h1 {
@@ -143,14 +221,27 @@ footer {
 
     .timer-card {
         padding: 28px 20px;
+        margin-bottom: 16px;
     }
 
-    .stats-card,
-    .badges-card,
-    .analytics-card,
     .tasks-card,
     .focus-card {
         padding: 20px;
+        margin-bottom: 16px;
+    }
+
+    .profile-card,
+    .sidebar-panel {
+        padding: 20px;
+    }
+
+    .sidebar-tabs {
+        padding: 4px;
+    }
+
+    .sidebar-tab {
+        padding: 8px 10px;
+        font-size: 0.8rem;
     }
 }
 
@@ -167,11 +258,10 @@ footer {
         padding: 24px 16px;
     }
 
-    .stats-card,
-    .badges-card,
-    .analytics-card,
     .tasks-card,
-    .focus-card {
+    .focus-card,
+    .profile-card,
+    .sidebar-panel {
         padding: 16px;
     }
 
