@@ -48,8 +48,8 @@ Pomodoro.state = {
         bestDay: { date: null, count: 0 }
     },
 
-    shield: {
-        enabled: true,
+shield: {
+        enabled: false,
         strictMode: false,
         distractionThreshold: 10,
         penaltyEnabled: true,
