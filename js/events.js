@@ -144,5 +144,5 @@ Pomodoro.events = (function() {
         });
     }
 
-    return { init };
+return { init, toggleProfile, toggleAchievements, toggleAnalytics };
 })();
