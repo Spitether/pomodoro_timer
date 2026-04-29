@@ -9,6 +9,7 @@
         Pomodoro.streaks.resetDailyIfNeeded();
         Pomodoro.events.init();
 
+
         // Load saved session state if available (within 24h)
         const hasSavedSession = Pomodoro.timer.loadSession();
         if (!hasSavedSession) {

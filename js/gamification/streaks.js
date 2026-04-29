@@ -44,10 +44,12 @@ Pomodoro.streaks = (function() {
 
         if (savedDate !== today) {
             gamification.todaySessions = 0;
+            gamification.todayWorkSessions = 0;
             gamification.dailyGoalCompleted = false;
             localStorage.setItem('pomodoroLastDate', today);
         }
     }
+
 
     return { check, checkTimeBasedAchievements, resetDailyIfNeeded };
 })();
