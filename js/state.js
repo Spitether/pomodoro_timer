@@ -39,6 +39,7 @@ Pomodoro.state = {
         totalSessions: 0,
         dailyGoalCompleted: false,
         maxDailySessions: 0,
+        todayWorkSessions: 0,
         nightOwl: false,
         earlyBird: false,
         earnedBadges: [],
@@ -46,6 +47,7 @@ Pomodoro.state = {
         sessionHistory: [],
         bestDay: { date: null, count: 0 }
     },
+
     shield: {
         enabled: true,
         strictMode: false,

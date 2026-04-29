@@ -76,11 +76,12 @@ Pomodoro.timer = (function() {
         updateModeColors();
 
         if (state.currentSession === 'work') {
-            dom.sessionCount.textContent = `#${state.workSessionsCompleted + 1}`;
+            dom.sessionCount.textContent = `#${state.gamification.todayWorkSessions + 1}`;
             dom.sessionCount.style.display = 'inline';
         } else {
             dom.sessionCount.style.display = 'none';
         }
+
 
         // Update active task badge if tasks module is loaded
         if (Pomodoro.tasks && Pomodoro.tasks.renderActiveTaskBadge) {
@@ -108,6 +109,7 @@ Pomodoro.timer = (function() {
 
     function determineNextSession() {
         if (state.currentSession === 'work') {
+            state.gamification.todayWorkSessions++;
             state.workSessionsCompleted++;
             if (state.workSessionsCompleted % 4 === 0) {
                 return 'longBreak';
@@ -116,6 +118,7 @@ Pomodoro.timer = (function() {
         }
         return sessionConfig[state.currentSession].next;
     }
+
 
     function onTimerComplete() {
         Pomodoro.audio.playAlert();
@@ -179,12 +182,13 @@ Pomodoro.timer = (function() {
         const sessionData = {
             timeRemaining: state.timeRemaining,
             currentSession: state.currentSession,
-            workSessionsCompleted: state.workSessionsCompleted,
+            workSessionsCompleted: state.workSessionsCompleted, // Permanent total
             isRunning: state.isRunning,
             lastSaved: Date.now()
         };
         localStorage.setItem('pomodoroSession', JSON.stringify(sessionData));
     }
+
 
     function loadSession() {
         const saved = localStorage.getItem('pomodoroSession');
@@ -201,7 +205,9 @@ Pomodoro.timer = (function() {
             state.timeRemaining = data.timeRemaining;
             state.currentSession = data.currentSession || 'work';
             state.workSessionsCompleted = data.workSessionsCompleted || 0;
+            // Don't restore todayWorkSessions - let streaks.resetDailyIfNeeded() handle it
             return true;
+
         } catch (e) {
             return false;
         }
