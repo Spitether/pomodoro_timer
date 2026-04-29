@@ -82,10 +82,10 @@
                 </div>
             </section>
 
-            <!-- Tasks Panel - Always Visible -->
+<!-- Tasks Panel (Always Visible) -->
             <section id="tasks-panel" class="tasks-card" aria-label="Tasks">
                 <div class="tasks-header">
-                    <h3>My Tasks</h3>
+                    <h3>📝 My Tasks</h3>
                     <span class="tasks-count" id="tasks-count">0/0</span>
                 </div>
                 <div class="folder-tabs" id="folder-tabs"></div>
@@ -98,8 +98,14 @@
                 </div>
             </section>
 
-            <!-- Focus Environment - Always Visible -->
-            <section id="focus-panel" class="focus-card" aria-label="Focus Environment">
+            <!-- Customization Toggle Button -->
+            <button id="focus-toggle-btn" class="achievements-toggle" aria-expanded="false" aria-controls="focus-panel">
+                <span>🎧 Customization</span>
+                <span class="toggle-arrow" aria-hidden="true">▼</span>
+            </button>
+
+            <!-- Focus/Customization Panel (Collapsible) -->
+            <section id="focus-panel" class="focus-card hidden" aria-label="Focus Environment">
                 <!-- Themes -->
                 <div class="focus-section">
                     <h4>🎨 Themes</h4>
@@ -165,7 +171,7 @@
                         </div>
                     </div>
                 </div>
-</section>
+            </section>
         </main>
 
 <!-- Sidebar for Profile, Achievements and Analytics -->
