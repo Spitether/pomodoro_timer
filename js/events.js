@@ -7,19 +7,31 @@ Pomodoro.events = (function() {
     const timer = Pomodoro.timer;
     const state = Pomodoro.state;
 
-    function toggleSidebarTab(tabName) {
-        document.querySelectorAll('.sidebar-tab').forEach(btn => {
-            btn.classList.toggle('active', btn.dataset.sidebar === tabName);
-            btn.setAttribute('aria-selected', String(btn.dataset.sidebar === tabName));
-        });
-        
-        document.querySelectorAll('.sidebar-panel').forEach(panel => {
-            if (panel.id === 'badges-panel') {
-                panel.classList.toggle('hidden', tabName !== 'achievements');
-            } else if (panel.id === 'analytics-panel') {
-                panel.classList.toggle('hidden', tabName !== 'analytics');
-            }
-        });
+    function toggleProfile() {
+        const isExpanded = dom.profileToggleBtn.getAttribute('aria-expanded') === 'true';
+        dom.profileToggleBtn.setAttribute('aria-expanded', String(!isExpanded));
+        dom.profileCard.classList.toggle('hidden');
+        // Rotate arrow
+        const arrow = dom.profileToggleBtn.querySelector('.toggle-arrow');
+        if (arrow) arrow.style.transform = isExpanded ? 'rotate(-90deg)' : 'rotate(0deg)';
+    }
+
+    function toggleAchievements() {
+        const isExpanded = dom.badgesToggleBtn.getAttribute('aria-expanded') === 'true';
+        dom.badgesToggleBtn.setAttribute('aria-expanded', String(!isExpanded));
+        dom.badgesPanel.classList.toggle('hidden');
+        // Rotate arrow
+        const arrow = dom.badgesToggleBtn.querySelector('.toggle-arrow');
+        if (arrow) arrow.style.transform = isExpanded ? 'rotate(-90deg)' : 'rotate(0deg)';
+    }
+
+    function toggleAnalytics() {
+        const isExpanded = dom.analyticsToggleBtn.getAttribute('aria-expanded') === 'true';
+        dom.analyticsToggleBtn.setAttribute('aria-expanded', String(!isExpanded));
+        dom.analyticsPanel.classList.toggle('hidden');
+        // Rotate arrow
+        const arrow = dom.analyticsToggleBtn.querySelector('.toggle-arrow');
+        if (arrow) arrow.style.transform = isExpanded ? 'rotate(-90deg)' : 'rotate(0deg)';
     }
 
     function init() {
@@ -32,12 +44,10 @@ Pomodoro.events = (function() {
         dom.closeModal.addEventListener('click', Pomodoro.settings.close);
         dom.saveSettings.addEventListener('click', Pomodoro.settings.save);
 
-        // Sidebar tab switching
-        document.querySelectorAll('.sidebar-tab').forEach(btn => {
-            btn.addEventListener('click', () => {
-                toggleSidebarTab(btn.dataset.sidebar);
-            });
-        });
+        // Toggle handlers for collapsible sections
+        if (dom.profileToggleBtn) dom.profileToggleBtn.addEventListener('click', toggleProfile);
+        if (dom.badgesToggleBtn) dom.badgesToggleBtn.addEventListener('click', toggleAchievements);
+        if (dom.analyticsToggleBtn) dom.analyticsToggleBtn.addEventListener('click', toggleAnalytics);
 
         if (dom.taskAddBtn) {
             dom.taskAddBtn.addEventListener('click', () => {

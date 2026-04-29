@@ -168,19 +168,16 @@
 </section>
         </main>
 
-        <!-- Sidebar for Achievements and Analytics -->
+<!-- Sidebar for Profile, Achievements and Analytics -->
         <aside class="sidebar">
-            <div class="sidebar-tabs" role="tablist" aria-label="Sidebar Sections">
-                <button class="sidebar-tab active" data-sidebar="achievements" role="tab" aria-selected="true">
-                    🏅 Achievements
-                </button>
-                <button class="sidebar-tab" data-sidebar="analytics" role="tab" aria-selected="false">
-                    📊 Analytics
-                </button>
-            </div>
+            <!-- Profile Card Toggle Button -->
+            <button id="profile-toggle-btn" class="sidebar-toggle achievements-toggle" aria-expanded="true" aria-controls="profile-card">
+                <span>👤 Profile</span>
+                <span class="toggle-arrow" aria-hidden="true">▼</span>
+            </button>
 
-            <!-- Profile Card in Sidebar -->
-            <section class="profile-card" aria-label="Profile">
+            <!-- Profile Card -->
+            <section id="profile-card" class="profile-card" aria-label="Profile">
                 <div class="character-section">
                     <div class="character-avatar" id="character-avatar" aria-hidden="true"></div>
                     <div class="character-info">
@@ -222,16 +219,27 @@
                 </div>
             </section>
 
+            <!-- Achievements Toggle Button -->
+            <button id="badges-toggle-btn" class="achievements-toggle" aria-expanded="true" aria-controls="badges-panel">
+                <span>🏅 Achievements</span>
+                <span class="toggle-arrow" aria-hidden="true">▼</span>
+            </button>
+
             <!-- Achievements Panel -->
-            <section id="badges-panel" class="sidebar-panel" aria-label="Achievements">
-                <h3>Achievements</h3>
+            <section id="badges-panel" class="badges-card" aria-label="Achievements">
                 <div class="badges-grid" id="badges-grid">
                     <!-- Badges will be dynamically inserted here -->
                 </div>
             </section>
 
+            <!-- Analytics Toggle Button -->
+            <button id="analytics-toggle-btn" class="achievements-toggle analytics-toggle" aria-expanded="true" aria-controls="analytics-panel">
+                <span>📊 Productivity Analytics</span>
+                <span class="toggle-arrow" aria-hidden="true">▼</span>
+            </button>
+
             <!-- Analytics Panel -->
-            <section id="analytics-panel" class="sidebar-panel hidden" aria-label="Productivity Analytics">
+            <section id="analytics-panel" class="analytics-card" aria-label="Productivity Analytics">
                 <!-- Daily Focus Chart -->
                 <div class="analytics-section">
                     <h4>📊 Today's Focus</h4>

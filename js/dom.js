@@ -38,9 +38,11 @@ Pomodoro.dom = {
     badgesGrid: document.getElementById('badges-grid'),
     badgesToggleBtn: document.getElementById('badges-toggle-btn'),
     badgesPanel: document.getElementById('badges-panel'),
-    // Analytics elements
+// Analytics elements
     analyticsToggleBtn: document.getElementById('analytics-toggle-btn'),
     analyticsPanel: document.getElementById('analytics-panel'),
+    profileToggleBtn: document.getElementById('profile-toggle-btn'),
+    profileCard: document.getElementById('profile-card'),
     dailyChart: document.getElementById('daily-chart'),
     weeklyChart: document.getElementById('weekly-chart'),
     heatmapGrid: document.getElementById('heatmap-grid'),

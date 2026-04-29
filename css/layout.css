@@ -73,7 +73,7 @@ footer {
     max-width: 320px;
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 12px;
 }
 
 .profile-card {
@@ -83,44 +83,32 @@ footer {
     padding: 24px;
 }
 
-.sidebar-panel {
-    background-color: var(--card-bg);
+/* Sidebar Toggle Button */
+.sidebar-toggle {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid var(--border-color);
     border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    padding: 24px;
-    transition: var(--transition);
-}
-
-/* Sidebar Tabs */
-.sidebar-tabs {
-    display: flex;
-    gap: 8px;
-    background-color: var(--card-bg);
-    border-radius: var(--radius);
-    padding: 6px;
-    box-shadow: var(--shadow);
-}
-
-.sidebar-tab {
-    flex: 1;
-    padding: 10px 14px;
-    border: none;
-    border-radius: calc(var(--radius) - 4px);
-    background: transparent;
+    background: var(--card-bg);
     color: var(--text-muted);
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     font-weight: 600;
     cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     transition: var(--transition);
+    box-shadow: var(--shadow);
 }
 
-.sidebar-tab:hover {
-    color: var(--text-color);
+.sidebar-toggle:hover {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
 }
 
-.sidebar-tab.active {
-    background-color: var(--primary-color);
-    color: white;
+.sidebar-toggle .toggle-arrow {
+    transition: transform 0.3s ease;
+    font-size: 0.75rem;
 }
 
 /* Section dividers */
