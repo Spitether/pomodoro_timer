@@ -20,7 +20,7 @@ Pomodoro.settings = (function() {
         dom.settingsModal.classList.remove('hidden');
     }
 
-    function close() {
+function close() {
         dom.settingsModal.classList.add('hidden');
     }
 
@@ -32,6 +32,18 @@ Pomodoro.settings = (function() {
 
         if (work < 1 || shortBreak < 1 || longBreak < 1) {
             alert('Durations must be at least 1 minute.');
+            return;
+        }
+        if (work > 120) {
+            alert('Work session cannot exceed 120 minutes.');
+            return;
+        }
+        if (shortBreak > 30) {
+            alert('Short break cannot exceed 30 minutes.');
+            return;
+        }
+        if (longBreak > 60) {
+            alert('Long break cannot exceed 60 minutes.');
             return;
         }
         if (dailyGoal < 1 || dailyGoal > 50) {

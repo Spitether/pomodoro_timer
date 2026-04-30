@@ -99,7 +99,7 @@ Pomodoro.timer = (function() {
         }
     }
 
-    function switchSession(sessionType) {
+function switchSession(sessionType) {
         state.currentSession = sessionType;
         state.timeRemaining = state.settings[sessionType] * 60;
         updateSessionUI();
@@ -119,26 +119,59 @@ Pomodoro.timer = (function() {
         return sessionConfig[state.currentSession].next;
     }
 
-
     function onTimerComplete() {
         Pomodoro.audio.playAlert();
 
+        // Calculate the actual duration in minutes that was completed
+        const actualMinutes = state.settings[state.currentSession];
+
+        // Get timer position for animations
+        const rect = dom.timerDisplay ? dom.timerDisplay.getBoundingClientRect() : { left: window.innerWidth / 2, top: window.innerHeight / 2 };
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top;
+
+        // Complete the current session (updates profile and productivity)
         if (state.currentSession === 'work') {
-            const rect = dom.timerDisplay ? dom.timerDisplay.getBoundingClientRect() : { left: window.innerWidth / 2, top: window.innerHeight / 2 };
-            Pomodoro.gamificationCore.onSessionComplete(rect.left + rect.width / 2, rect.top);
+            // Update gamification (XP, level, streaks, badges, daily goals, profile)
+            if (Pomodoro.gamificationCore) {
+                Pomodoro.gamificationCore.onSessionComplete(centerX, centerY, actualMinutes);
+            }
+        } else {
+            // For break sessions, still log for analytics
+            if (Pomodoro.gamificationCore) {
+                Pomodoro.gamificationCore.onBreakComplete(centerX, centerY, actualMinutes);
+            }
         }
 
-        // Always auto-switch session
-        const nextSession = determineNextSession();
-        switchSession(nextSession);
-        
-        if (state.settings.autoCycle) {
-            state.isRunning = false; // Reset so start() works
-            start();
-        } else {
-            state.isRunning = false;
-            updateControls();
+        // UPDATE PROFILE - explicitly update all profile displays
+        if (Pomodoro.gamificationUI) {
+            Pomodoro.gamificationUI.updateAll();
         }
+
+        // UPDATE PRODUCTIVITY ANALYSIS - explicitly update analytics
+        if (Pomodoro.analytics) {
+            Pomodoro.analytics.updateAll();
+        }
+
+        // UPDATE TASKS - increment session count for active task
+        if (Pomodoro.tasks) {
+            Pomodoro.tasks.onSessionComplete();
+        }
+
+        // SAVE DATA - persist all changes
+        if (Pomodoro.gamificationStorage) {
+            Pomodoro.gamificationStorage.save();
+        }
+
+        // DETERMINE NEXT SESSION
+        const nextSession = determineNextSession();
+
+        // SWITCH TO NEXT SESSION - update to work/shortBreak/longBreak tab
+        switchSession(nextSession);
+
+        // Always update controls to show start button
+        state.isRunning = false;
+        updateControls();
     }
 
     function tick() {
