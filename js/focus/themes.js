@@ -57,9 +57,18 @@ Pomodoro.focusThemes = (function() {
         });
     }
 
-    return {
+return {
         applyTheme,
         renderThemeGrid
     };
 })();
+
+// Auto-render themes immediately when script loads
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() {
+        Pomodoro.focusThemes.renderThemeGrid();
+    });
+} else {
+    Pomodoro.focusThemes.renderThemeGrid();
+}
 

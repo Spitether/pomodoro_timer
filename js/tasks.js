@@ -416,7 +416,7 @@ Pomodoro.tasks = (function() {
         return div.innerHTML;
     }
 
-    return {
+return {
         init,
         add,
         toggleComplete,
@@ -431,4 +431,18 @@ Pomodoro.tasks = (function() {
         setActiveFolder
     };
 })();
+
+// Auto-render tasks and folders immediately when script loads
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() {
+        Pomodoro.tasks.init();
+    });
+} else {
+    // DOM already loaded, init after short delay to ensure DOM is ready
+    setTimeout(function() {
+        if (document.getElementById('folder-tabs')) {
+            Pomodoro.tasks.init();
+        }
+    }, 100);
+}
 

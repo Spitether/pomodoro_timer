@@ -81,11 +81,20 @@ Pomodoro.focusAmbient = (function() {
         }
     }
 
-    return {
+return {
         renderAmbientControls,
         toggleAmbient,
         setVolume,
         updateAmbientUI
     };
 })();
+
+// Auto-render ambient controls immediately when script loads
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() {
+        Pomodoro.focusAmbient.renderAmbientControls();
+    });
+} else {
+    Pomodoro.focusAmbient.renderAmbientControls();
+}
 

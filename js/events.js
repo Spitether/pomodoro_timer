@@ -25,12 +25,21 @@ Pomodoro.events = (function() {
         if (arrow) arrow.style.transform = isExpanded ? 'rotate(-90deg)' : 'rotate(0deg)';
     }
 
-    function toggleAnalytics() {
+function toggleAnalytics() {
         const isExpanded = dom.analyticsToggleBtn.getAttribute('aria-expanded') === 'true';
         dom.analyticsToggleBtn.setAttribute('aria-expanded', String(!isExpanded));
         dom.analyticsPanel.classList.toggle('hidden');
         // Rotate arrow
         const arrow = dom.analyticsToggleBtn.querySelector('.toggle-arrow');
+        if (arrow) arrow.style.transform = isExpanded ? 'rotate(-90deg)' : 'rotate(0deg)';
+    }
+
+    function toggleFocusPanel() {
+        const isExpanded = dom.focusToggleBtn.getAttribute('aria-expanded') === 'true';
+        dom.focusToggleBtn.setAttribute('aria-expanded', String(!isExpanded));
+        dom.focusPanel.classList.toggle('hidden');
+        // Rotate arrow
+        const arrow = dom.focusToggleBtn.querySelector('.toggle-arrow');
         if (arrow) arrow.style.transform = isExpanded ? 'rotate(-90deg)' : 'rotate(0deg)';
     }
 
@@ -44,10 +53,11 @@ Pomodoro.events = (function() {
         dom.closeModal.addEventListener('click', Pomodoro.settings.close);
         dom.saveSettings.addEventListener('click', Pomodoro.settings.save);
 
-        // Toggle handlers for collapsible sections
+// Toggle handlers for collapsible sections
         if (dom.profileToggleBtn) dom.profileToggleBtn.addEventListener('click', toggleProfile);
         if (dom.badgesToggleBtn) dom.badgesToggleBtn.addEventListener('click', toggleAchievements);
         if (dom.analyticsToggleBtn) dom.analyticsToggleBtn.addEventListener('click', toggleAnalytics);
+        if (dom.focusToggleBtn) dom.focusToggleBtn.addEventListener('click', toggleFocusPanel);
 
         if (dom.taskAddBtn) {
             dom.taskAddBtn.addEventListener('click', () => {

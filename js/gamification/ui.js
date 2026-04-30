@@ -84,7 +84,7 @@ Pomodoro.gamificationUI = (function() {
         updateCharacter();
     }
 
-    return {
+return {
         updateCharacter,
         showLevelUpNotification,
         showXPGain,
@@ -92,4 +92,13 @@ Pomodoro.gamificationUI = (function() {
         updateAll
     };
 })();
+
+// Auto-render badges immediately when script loads
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() {
+        Pomodoro.gamificationUI.renderBadges([]);
+    });
+} else {
+    Pomodoro.gamificationUI.renderBadges([]);
+}
 

@@ -85,53 +85,31 @@ Pomodoro.audio = (function() {
         return g;
     }
 
-    function playAmbient(type, volume) {
+function playAmbient(type, volume) {
         stopAmbient();
 
-        if (audioCtx.state === 'suspended') {
-            audioCtx.resume();
-        }
-
-        const masterGain = buildMasterGain(volume);
-
+        let mp3Audio;
+        
         if (type === 'minecraft') {
-            const mp3Audio = new Audio('audio/minecraft.mp3');
-            mp3Audio.loop = true;
-            mp3Audio.volume = 1;
-
-            const source = audioCtx.createMediaElementSource(mp3Audio);
-            source.connect(masterGain);
-
-            mp3Audio.play().catch(e => console.log('Minecraft audio play failed:', e));
-
-            ambientNodes = { source, masterGain, mp3Audio, type: 'mp3' };
+            mp3Audio = new Audio('audio/minecraft.mp3');
         }
         else if (type === 'rain') {
-            // Play real rain MP3
-            const mp3Audio = new Audio('audio/rain.mp3');
-            mp3Audio.loop = true;
-            mp3Audio.volume = 1;
-
-            const source = audioCtx.createMediaElementSource(mp3Audio);
-            source.connect(masterGain);
-
-            mp3Audio.play().catch(e => console.log('Rain audio play failed:', e));
-
-            ambientNodes = { source, masterGain, mp3Audio, type: 'mp3' };
+            mp3Audio = new Audio('audio/rain.mp3');
         }
         else if (type === 'cafe') {
-            // Play real café MP3
-            const mp3Audio = new Audio('audio/Cafe.mp3');
-            mp3Audio.loop = true;
-            mp3Audio.volume = 1;
-
-            const source = audioCtx.createMediaElementSource(mp3Audio);
-            source.connect(masterGain);
-
-            mp3Audio.play().catch(e => console.log('Café audio play failed:', e));
-
-            ambientNodes = { source, masterGain, mp3Audio, type: 'mp3' };
+            mp3Audio = new Audio('audio/Cafe.mp3');
         }
+        else {
+            return;
+        }
+
+        // Play directly without AudioContext (simpler and works better)
+        mp3Audio.loop = true;
+        mp3Audio.volume = volume;
+        mp3Audio.play().catch(e => console.log('Ambient audio play failed:', e));
+
+        // Track state without AudioContext routing
+        ambientNodes = { mp3Audio, type: 'mp3' };
     }
 
     function stopAmbient() {
@@ -154,11 +132,9 @@ Pomodoro.audio = (function() {
         ambientNodes = null;
     }
 
-    function setAmbientVolume(volume) {
-        if (ambientNodes && ambientNodes.masterGain) {
-            // Smooth volume ramp
-            const now = audioCtx.currentTime;
-            ambientNodes.masterGain.gain.setTargetAtTime(volume, now, 0.05);
+function setAmbientVolume(volume) {
+        if (ambientNodes && ambientNodes.mp3Audio) {
+            ambientNodes.mp3Audio.volume = volume;
         }
     }
 

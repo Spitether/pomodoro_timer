@@ -44,7 +44,7 @@ Pomodoro.focusEnv = (function() {
         }
     }
 
-    return {
+return {
         init,
         savePreferences,
         loadPreferences
